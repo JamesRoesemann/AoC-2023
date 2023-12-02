@@ -1,0 +1,91 @@
+/*REXX*/
+/*This program is intended to solve Day 1 of the Advents of Code*/
+/*2023 Challange: Day 1*/
+/*i may have tp put in some logic for no digit found. might breask as is.*/
+LeftDigit=0
+LeftPos=0
+RightPos=0
+RightDigit=0
+Combined=""
+SumTotal=0
+FullWord.='0'
+FullWord.1='one'
+FullWord.2='two'
+FullWord.3='three'
+FullWord.4='four'
+FullWord.5='five'
+FullWord.6='six'
+FullWord.7='seven'
+FullWord.8='eight'
+FullWord.9='nine'
+
+/* read in input*/
+InFile='AOC4JR.Day1.rexx(input1)'
+"Alloc FI(INDD) DA('"InFile"') SHR"
+"EXECIO * DISKR INDD (STEM input. FINIS"
+/*Seach each string for the first and last digits. Combine and add to total.*/
+do j=1 to input.0 by 1
+    /*making sure left pos has a default value greater than zero*/
+    leftPos=length(input.0)
+    do
+        /*find leftmost digit*/
+        do i=1 to length(input.j) by 1
+            LeftDigit=substr(input.j,i,1)
+            IF datatype(LeftDigit,"N") THEN
+                do
+                    LeftPos=i
+                    i=length(input.j)
+                END
+        end
+        /*find rightmost digit*/
+        do i=length(input.j) to 1 by -1
+            RightDigit=substr(input.j,i,1)
+            IF datatype(RightDigit,"N") THEN
+                do
+                    RightPos=i
+                    i=0
+                END
+        end
+    end
+    /*searches for a possible spelled word found before the LeftDigit, */
+    /*unless LeftDigit has a position of 0, in which case it skips it. */
+    do
+    /*if the word is found assign it a position value*/
+        do LSearch=1 to 9 by 1
+            FullWord.LSearch.PosVal=pos(FullWord.LSearch,input.j)
+        /* check to see if the leftmost word is more left then the leftmost */
+        /* digit. update the digit as nessicary */
+            if FullWord.LSearch.PosVal<=LeftPos&FullWord.LSearch.PosVal\=0 then
+                do
+                    LeftDigit=LSearch
+                    LeftPos=FullWord.LSearch.PosVal
+                end
+            /*reset any full word position values*/
+            FullWord.LSearch.PosVal='0'
+        end
+    end
+    /*searches for a possible spelled word found after the RightDigit, */
+    /*unless RightDigit = input.j length, in which case it skips it. */
+    do
+        /*if the word is found assign it a position value*/
+        do RSearch=1 to 9 by 1
+            FullWord.RSearch.PosVal=lastpos(FullWord.RSearch,input.j)
+        /* check to see if the leftmost word is more left then the leftmost */
+        /* digit. update the digit as nessicary */
+            if FullWord.RSearch.PosVal>=RightPos ,
+            & FullWord.RSearch.PosVal\=0 then
+                do
+                    RightDigit=RSearch
+                    RightPos=FullWord.RSearch.PosVal
+                end
+            /*reset any full word position values*/
+            FullWord.RSearch.PosVal='0'
+        end
+
+    end
+    RightPos=0
+    /*concatinate digits and add to total*/
+    Combined=LeftDigit||RightDigit
+    SumTotal=SumTotal+Combined
+end
+Say "The sum of all calibration values is" SumTotal

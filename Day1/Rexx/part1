@@ -1,0 +1,34 @@
+/*REXX*/
+/*This program is intended to solve Day 1 of the Advents of Code*/
+/*2023 Challange: Day 1*/
+LeftDigit=0
+RightDigit=0
+Combined=""
+SumTotal=0
+/* read in input*/
+InFile='AOC4JR.Day1.rexx(input1)'
+"Alloc FI(INDD) DA('"InFile"') SHR"
+"EXECIO * DISKR INDD (STEM input. FINIS"
+/*Seach each string for the first and last digits. Combine and add to total.*/
+do j=1 to input.0 by 1
+    /*find leftmost digit*/
+    do i=1 to length(input.j) by 1
+        LeftDigit=substr(input.j,i,1)
+        IF datatype(LeftDigit,"N") THEN
+            do
+                i=length(input.j)
+            END
+    end
+    /*find rightmost digit*/
+    do i=length(input.j) to 0 by -1
+        RightDigit=substr(input.j,i,1)
+        IF datatype(RightDigit,"N") THEN
+            do
+                i=0
+            END
+    end
+    /*concatinate digits and add to total*/
+    Combined=LeftDigit||RightDigit
+    SumTotal=SumTotal+Combined
+end
+Say "The sum of all calibration values is" SumTotal
