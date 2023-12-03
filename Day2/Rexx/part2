@@ -1,0 +1,83 @@
+/*REXX*/
+/*This program is intended to solve the Advent of Code*/
+/*2023 Challange: Day 2 Part 2*/
+
+HLQ=userid()
+inMember=HLQ||'.'||'DAY2.REXX(input1)'
+red=12
+green=13
+blue=14
+Game.='possible'
+TotalPossible=0
+
+TotalPower=0
+MaxGreen=0
+MaxBlue=0
+MaxRed=0
+
+
+/* read in input*/
+"Alloc FI(INDD) DA('"inMember"') SHR"
+"EXECIO * DISKR INDD (STEM input. FINIS"
+
+/*For each record, seperate the id number from the cube values*/
+/*then seperate the cube values from each game and compare with MaxCubes */
+/*use this information to find the lgest collection of cubes for each color */
+/*in the game.*/
+do GameIndex=1 to input.0 by 1
+    parse value input.GameIndex with GameName GameNumber BoxList
+    do until BoxList=""
+        /* Iterate through BoxList, separating 1-3 values depending on the */
+        /* delimiting character. strip the delmiter when relevant */
+        CubeCol.='EMPTY'
+        do EntryIndex=1 to 3 by 1
+            if BoxList\="" then
+            do
+                parse Value BoxList with boxNum.EntryIndex.val, 
+                CubeCol.EntryIndex.val Boxlist
+                
+                /* if the ; delimiter is present, strip it and end the loop*/
+                if pos(';',CubeCol.EntryIndex.val) > 0 then
+                do
+                    CubeCol.EntryIndex.val=strip(CubeCol.EntryIndex.val,,';')
+                    currentColor=CubeCol.EntryIndex.val
+                    call FindMax        
+                    EntryIndex=3
+                end
+                /* strip any possible , and continu the loop.*/
+                else
+                do
+                    CubeCol.EntryIndex.val=strip(CubeCol.EntryIndex.val,,',')
+                    currentColor=CubeCol.EntryIndex.val
+                    call FindMax 
+                end              
+            end
+        end 
+        
+    end
+    /*add current power value to total power value*/
+    currentPower=MaxBlue*MaxGreen*MaxRed
+    TotalPower=TotalPower+currentPower
+    /*reset values*/
+    MaxBlue=0
+    MaxGreen=0
+    MaxRed=0
+    
+end
+say 'The Sum of the power sets is:' TotalPower
+
+
+
+
+
+/*given the current color, see if the count is the highest of the current*/
+/*game. if it is then set that as that colors current max value*/
+FindMax:
+if currentColor='red' & boxNum.EntryIndex.val>MaxRed then,
+MaxRed=boxNum.EntryIndex.val;
+if currentColor='green' & boxNum.EntryIndex.val>MaxGreen then,
+MaxGreen=boxNum.EntryIndex.val;
+if currentColor='blue' & boxNum.EntryIndex.val>MaxBlue then, 
+MaxBlue=boxNum.EntryIndex.val;
+return 0 
+
