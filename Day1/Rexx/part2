@@ -1,7 +1,6 @@
 /*REXX*/
-/*This program is intended to solve Day 1 of the Advents of Code*/
-/*2023 Challange: Day 1*/
-/*i may have tp put in some logic for no digit found. might breask as is.*/
+/*This program is intended to solve Day 1 of the Advent of Code*/
+/*2023 Challange: Day 1 Part 2*/
 LeftDigit=0
 LeftPos=0
 RightPos=0
@@ -19,11 +18,14 @@ FullWord.7='seven'
 FullWord.8='eight'
 FullWord.9='nine'
 
+HLQ=userid()
+
 /* read in input*/
-InFile='AOC4JR.Day1.rexx(input1)'
+InFile=HLQ||'.'||'DAY1.REXX(input1)
 "Alloc FI(INDD) DA('"InFile"') SHR"
 "EXECIO * DISKR INDD (STEM input. FINIS"
-/*Seach each string for the first and last digits. Combine and add to total.*/
+/*Seach each string for the first and last digits.*/
+/* Combine and add to total.*/
 do j=1 to input.0 by 1
     /*making sure left pos has a default value greater than zero*/
     leftPos=length(input.0)
@@ -47,14 +49,14 @@ do j=1 to input.0 by 1
                 END
         end
     end
-    /*searches for a possible spelled word found before the LeftDigit, */
-    /*unless LeftDigit has a position of 0, in which case it skips it. */
+    /*searches for a possible spelled word found before the LeftDigit,*/
+    /*unless LeftDigit has a position of 0, in which case it skips it.*/
     do
     /*if the word is found assign it a position value*/
         do LSearch=1 to 9 by 1
             FullWord.LSearch.PosVal=pos(FullWord.LSearch,input.j)
-        /* check to see if the leftmost word is more left then the leftmost */
-        /* digit. update the digit as nessicary */
+        /* check to see if the leftmost word is farther to the left
+        /* then LeftMost */
             if FullWord.LSearch.PosVal<=LeftPos&FullWord.LSearch.PosVal\=0 then
                 do
                     LeftDigit=LSearch

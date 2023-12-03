@@ -1,15 +1,18 @@
 /*REXX*/
-/*This program is intended to solve Day 1 of the Advents of Code*/
-/*2023 Challange: Day 1*/
+/*This program is intended to solve Day 1 of the Advent of Code*/
+/*2023 Challange: Day 1 Part 1*/
 LeftDigit=0
 RightDigit=0
 Combined=""
 SumTotal=0
+HLQ=userid()
+
 /* read in input*/
-InFile='AOC4JR.Day1.rexx(input1)'
+InFile=HLQ||'.'||'DAY1.REXX(input1)
 "Alloc FI(INDD) DA('"InFile"') SHR"
 "EXECIO * DISKR INDD (STEM input. FINIS"
-/*Seach each string for the first and last digits. Combine and add to total.*/
+/*Seach each string for the first and last digits. */
+/*Combine and add to total.*/
 do j=1 to input.0 by 1
     /*find leftmost digit*/
     do i=1 to length(input.j) by 1
