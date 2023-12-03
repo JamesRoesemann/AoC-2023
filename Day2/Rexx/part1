@@ -13,13 +13,6 @@ TotalPossible=0
 /* read in input*/
 "Alloc FI(INDD) DA('"inMember"') SHR"
 "EXECIO * DISKR INDD (STEM input. FINIS"
-/**
-say words(input.1)
-parse value input.1 with gname gcount rest
-say gname
-say gcount
-say rest
-say words(rest) **/
 
 /*For each record, seperate the id number from the cube values*/
 /*then seperate the cube values from each game and compare with MaxCubes */

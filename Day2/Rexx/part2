@@ -4,11 +4,6 @@
 
 HLQ=userid()
 inMember=HLQ||'.'||'DAY2.REXX(input1)'
-red=12
-green=13
-blue=14
-Game.='possible'
-TotalPossible=0
 
 TotalPower=0
 MaxGreen=0
