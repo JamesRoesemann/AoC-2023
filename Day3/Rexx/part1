@@ -1,0 +1,91 @@
+/*REXX*/
+/*This program is intended to solve the Advent of Code*/
+/*2023 Challange: Day 1 Part 21*/
+
+HLQ=userid()
+inMember=HLQ||'.'||'DAY3.REXX(sample1)'
+foundNumbers='Empty'
+foundNumbers.lineNum.nIndex.partNumber='Empty'
+foundNumbers.lineNum.nIndex.leftBound='Empty'
+foundNumbers.lineNum.nIndex.rightBound='Empty'
+foundSymbol.lineNum.sIndex.position='0'
+
+
+/* read in input*/
+"Alloc FI(INDD) DA('"inMember"') SHR"
+"EXECIO * DISKR INDD (STEM input. FINIS"
+/*test values*/
+testval=input.1
+lineNum=1
+nIndex=0
+sIndex=1
+
+do lineNum=1 to input.0 by 1
+    nIndex=nIndex+1
+    do untill input.lineNum==''
+        tsltval=findNumber(testVal)
+    end
+end    
+
+/* method to find and return the line positions of special characters, as well*/
+/* as the value of found numbers, and their start and end position.*/
+/* pass in a string, the lineNum, the nIndex and the sIndex*/
+/*this metod is ment to be called recursivly*/
+/* for testing, lets just have it pint out the values for now before we return*/
+findNumber: 
+say testVal
+firstNumFound=0
+partNumber=''
+do searchIndex=1 to length(testVal) by 1
+    /*check to see if its a reguilar character, a period or string.*/ 
+    /*branch acordingly*/
+    /*get the first character*/
+    currentChar=substr(testVal,searchIndex,1)
+    say testVal
+    /*verify if its a number*/
+    if datatype(currentChar,'N') then
+    do
+        if firstNumFound=0 then pos1=searchIndex
+        partNumber=partNumber||currentChar
+        firstNumFound=1
+        say "partNumber" partNumber
+    end
+    /*if it's a symbol*/
+    /*else if currentChar\='' then I THINK it should stop at length input.lineNu
+    */
+    else 
+    do
+        /*if its a non period symbol*/
+        if currentChar\='.' then
+        do
+            /*if foundSymbol.sIndex-1.position=0, set */
+            /*foundSymbol.sIndex.position=searchIndex. if not set it to */
+            /*foundSymbol.sIndex-1.position+searchIndex*/
+            say "symbol" currentChar
+        end
+        else
+        do
+            say "period" currentChar
+        end
+        /*if found a number previously, retrun the remainder of */
+        /*input.lineNum.nIndex*/
+        if firstNumFound==True then 
+        do 
+            say "position1" pos1 "position2" searchIndex-1
+            /* i think i may need to increase by 1, but too tired, run n check*/
+            testVal=substr(testVal,searchIndex,,
+            lengh(testVal)-searchIndex)
+        end
+    end
+end
+
+return 0
+
+
+
+/* the problem i'm having right now is variables arguments to procedures.*/
+/*and methods. i think it would work if i could figure that out */
+/* what i'm getting is i can't pass this as a stem.*/
+/*i could possibly pass a stack*/
+/*ok, so i just have to be sure to convert it to a proper string before*/
+/*passing it. I think i can make that work*.
